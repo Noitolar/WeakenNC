@@ -57,7 +57,7 @@ if __name__ == "__main__":
         "weaken_etf_fixdim": "./model_weights/resnet18_cifar10_CE_SGD_bias_true_batchsize_128_ETFfc_true_fixdim_10_sota_true_weaken_02/info.pkl",
     }
 
-    def xxx(label1, label2, start=0, num_interpolations=0):
+    def xxx(label1, label2, start=0, num_interpolations=0, dont_save=False):
         with open(exp_path[label1], 'rb') as f1, open(exp_path[label2], "rb") as f2:
             info1 = pickle.load(f1)
             info2 = pickle.load(f2)
@@ -66,9 +66,13 @@ if __name__ == "__main__":
                     savepath = f"./figures/{label1.replace('vanilla_', '')}/{translator[key]}.png"
                     if not os.path.exists(os.path.dirname(savepath)):
                         os.makedirs(os.path.dirname(savepath))
-                    plot(info1[key][start:], info2[key][start:], label1, label2, num_interpolations, title=translator[key].upper(), saveto=savepath)
+                    if dont_save:
+                        plot(info1[key][start:], info2[key][start:], label1, label2, num_interpolations, title=translator[key].upper())
+                    else:
+                        plot(info1[key][start:], info2[key][start:], label1, label2, num_interpolations, title=translator[key].upper(), saveto=savepath)
 
     xxx("vanilla_normal", "weaken_normal")
     xxx("vanilla_etf", "weaken_etf")
     xxx("vanilla_fixdim", "weaken_fixdim")
     xxx("vanilla_etf_fixdim", "weaken_etf_fixdim")
+    # xxx("vanilla_fixdim", "vanilla_etf_fixdim", dont_save=True)

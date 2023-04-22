@@ -10,7 +10,6 @@ from utils import *
 from args import parse_eval_args
 from datasets import make_dataset
 
-
 MNIST_TRAIN_SAMPLES = (5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5949)
 MNIST_TEST_SAMPLES = (980, 1135, 1032, 1010, 982, 892, 958, 1028, 974, 1009)
 CIFAR10_TRAIN_SAMPLES = 10 * (5000,)
@@ -79,7 +78,6 @@ def compute_info(args, model, fc_features, dataloader, isTrain=True):
 
 
 def compute_Sigma_W(args, model, fc_features, mu_c_dict, dataloader, isTrain=True):
-
     Sigma_W = 0
     for batch_idx, (inputs, targets) in enumerate(dataloader):
 
@@ -160,11 +158,11 @@ def main():
     args.device = device
 
     trainloader, testloader, num_classes = make_dataset(args.dataset, args.data_dir, args.batch_size, args.sample_size)
-    
+
     if args.model == "MLP":
-        model = models.__dict__[args.model](hidden = args.width, depth = args.depth, fc_bias=args.bias, num_classes=num_classes).to(device)
+        model = models.__dict__[args.model](hidden=args.width, depth=args.depth, fc_bias=args.bias, num_classes=num_classes).to(device)
     elif args.model == "ResNet18_adapt":
-        model = ResNet18_adapt(width = args.width, num_classes=num_classes, fc_bias=args.bias).to(device)
+        model = ResNet18_adapt(width=args.width, num_classes=num_classes, fc_bias=args.bias).to(device)
     else:
         model = models.__dict__[args.model](num_classes=num_classes, fc_bias=args.bias, ETF_fc=args.ETF_fc, fixdim=args.fixdim, SOTA=args.SOTA).to(device)
 
@@ -212,7 +210,7 @@ def main():
         if args.bias:
             Wh_b_relation_metric = compute_Wh_b_relation(W, mu_G_train, b)
         else:
-            Wh_b_relation_metric = compute_Wh_b_relation(W, mu_G_train, torch.zeros((W.shape[0], )))
+            Wh_b_relation_metric = compute_Wh_b_relation(W, mu_G_train, torch.zeros((W.shape[0],)))
 
         info_dict['collapse_metric'].append(collapse_metric)
         info_dict['ETF_metric'].append(ETF_metric)

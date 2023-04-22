@@ -18,7 +18,7 @@ def parse_train_args():
     parser.add_argument('--ETF_fc', dest='ETF_fc', action='store_true')
     parser.add_argument('--fixdim', dest='fixdim', type=int, default=0)
     parser.add_argument('--SOTA', dest='SOTA', action='store_true')
-    
+
     # MLP settings (only when using mlp and res_adapt(in which case only width has effect))
     parser.add_argument('--width', type=int, default=1024)
     parser.add_argument('--depth', type=int, default=6)
@@ -105,11 +105,12 @@ def parse_eval_args():
     # parameters
     # Model Selection
     parser.add_argument('--model', type=str, default='resnet18')
+    parser.add_argument("--weaken", type=float, default=None)
     parser.add_argument('--no-bias', dest='bias', action='store_false')
     parser.add_argument('--ETF_fc', dest='ETF_fc', action='store_true')
     parser.add_argument('--fixdim', dest='fixdim', type=int, default=0)
     parser.add_argument('--SOTA', dest='SOTA', action='store_true')
-    
+
     # MLP settings (only when using mlp and res_adapt(in which case only width has effect))
     parser.add_argument('--width', type=int, default=1024)
     parser.add_argument('--depth', type=int, default=6)

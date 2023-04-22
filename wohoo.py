@@ -8,7 +8,8 @@ if __name__ == "__main__":
 
     base_config_val = "python validate_NC.py --gpu_id 0 --dataset cifar10 --batch_size 1024 --SOTA"
     vanilla_config_val = base_config_val + " --load_path model_weights/resnet18_cifar10_CE_SGD_bias_true_batchsize_128_ETFfc_false_fixdim_false_sota_true/ "
-    weaken_config_val = base_config_val + " --load_path model_weights/resnet18_cifar10_CE_SGD_bias_true_batchsize_128_ETFfc_false_fixdim_false_sota_true_weaken_02/ --weaken 0.2 "
+    weaken_config_val = base_config_val + " --load_path model_weights/resnet18_cifar10_CE_SGD_bias_true_batchsize_128_ETFfc_false_fixdim_false_sota_true_weaken_02/ --weaken 0.2 " 
+    # 👆后来发现这个weaken参数在验证时不起作用，也就是说在训练时有weaken，在推理时没有weaken
 
     base_config_plot = "python plot.py "
     vanilla_config_plot = base_config_plot + "--path ./model_weights/resnet18_cifar10_CE_SGD_bias_true_batchsize_128_ETFfc_false_fixdim_false_sota_true/ "
